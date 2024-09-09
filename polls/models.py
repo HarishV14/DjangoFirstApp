@@ -9,9 +9,10 @@ class Question(models.Model):
     pub_date = models.DateTimeField("date published")
     def __str__(self): #it will be returned when class of object is called or used
         return self.question_text
+ 
     def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
-
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE) #cascade when this field delete related field also deletes
